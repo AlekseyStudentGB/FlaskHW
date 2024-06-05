@@ -1,0 +1,14 @@
+{% extends "basic.html" %}
+{% block title%}
+{{ super() }} - Обувь
+{% endblock %}
+{% block content %}
+    {% for item in context %}
+        <div class="card" style="...">
+            <div class="card-body">
+                    <h2 class="card-title">{{ item.title }}</h2>
+                    <p>{{ item.description}}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
