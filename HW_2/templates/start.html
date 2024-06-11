@@ -1,0 +1,14 @@
+{% extends 'basic.html' %}
+
+{% block title %}
+Start
+{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('start_page') }}" method="post">
+  <input type="text" placeholder="name" name="name">
+  <input type="email" placeholder="email" name="email">
+  <input type="submit" value="push">
+</form>
+
+{% endblock %}
