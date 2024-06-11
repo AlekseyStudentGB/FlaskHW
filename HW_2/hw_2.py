@@ -20,6 +20,12 @@ def hello():
     username = request.cookies.get('username')
     if request.method == 'POST':
         res = make_response(redirect(url_for('start_page')))
-        res.set_cookie('username', username, max_age=0)
+        if request.cookies.get('username'):
+            res.set_cookie('username', username, max_age=0)
+            return res
         return res
-    return f'hi {username}'
+    return render_template('hello.html', name=username)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

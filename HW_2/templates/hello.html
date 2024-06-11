@@ -1,0 +1,14 @@
+{% extends 'basic.html' %}
+
+{% block title %}
+Hello
+{% endblock %}
+
+{% block content %}
+<p>hello {{ name }} </p>
+<form action="{{ url_for('hello') }}" method="post">
+
+  <input type="submit" value="exit">
+</form>
+
+{% endblock %}
