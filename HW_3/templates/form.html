@@ -1,0 +1,21 @@
+{% extends 'basic.html' %}
+{% block content %}
+<form method="post" action="{{ url_for('index') }}">
+    {{ form.csrf_token }}
+    <h2>Форма к заданию семинара 3</h2>
+    {% for item in form if item.name != 'csrf_token' %}
+        <p>
+            {{ item.label }}<br>
+            {{ item }}
+            {% if item.errors %}
+                <ul class="alert alert-danger">
+                    {% for error in item.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </p>
+    {% endfor %}
+    <input type="submit" value="Сохранить">
+</form>
+{% endblock %}
