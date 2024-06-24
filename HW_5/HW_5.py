@@ -41,32 +41,41 @@ class Task(BaseModel):
     status: Optional[bool] = False
 
 
-@app.get('/tasks')
+@app.get('/tasks', response_model=list[Task])
 async def get_tasks():
-    return JSONResponse(content=tasks, status_code=200)
+    return tasks
+
+
 @app.get('/tasks/{id}', response_model=list[Task])
-async def get_tasks(task_id: int):
+async def get_task(task_id: int):
     task = [t for t in tasks if t.task_id == task_id]
-    return JSONResponse(content=task, status_code=200)
-@app.post('/tasks',response_model=Task)
-async def add_task(title: str, description: str , status: bool=False):
+    return task
+
+
+@app.post('/tasks', response_model=list[Task])
+async def add_task(title: str, description: str, status: bool=False):
     task = Task(task_id=len(tasks), title=title, description=description)
     if status:
         task.status = True
     tasks.append(task)
-    return JSONResponse(content=tasks, status_code=200)
-@app.put("/tasks/{id}")
+    return tasks
+
+
+@app.put("/tasks/{id}", response_model=list[Task])
 async def update_task(task_id: int):
     for t in tasks:
         if task_id == t.task_id:
             t.status = True
-    return JSONResponse(content=tasks, status_code=200)
-@app.delete("/tasks/{id}")
+    return tasks
+
+
+@app.delete("/tasks/{id}", response_model=list[Task])
 async def delete_task(task_id: int):
     for i in range(len(tasks)):
         if task_id == tasks[i].task_id:
             tasks.pop(i)
-    return JSONResponse(content=tasks, status_code=200)
+    return tasks
 
 if __name__ == '__main__':
     uvicorn.run('HW_5:app', host='localhost', port=8000, reload=True)
+
